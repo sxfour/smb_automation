@@ -1,9 +1,11 @@
-from smb.SMBConnection import (SMBConnection,
-                               OperationFailure,
-                               ProtocolError,
-                               NotConnectedError,
-                               SMBTimeout,
-                               NotReadyError)
+from smb.SMBConnection import (
+    SMBConnection,
+    OperationFailure,
+    ProtocolError,
+    NotConnectedError,
+    SMBTimeout,
+    NotReadyError,
+)
 import smbprotocol.exceptions, uuid, numpy, logging, threading, matplotlib.pyplot as plt
 from smbprotocol.connection import Connection
 
@@ -32,7 +34,8 @@ def smb_check(hosts, port, timeout, dialects_int):
                     with open('output/output.txt', 'a') as f:
                         f.write(f'{x}:{y}\n')
                     break
-            except (ValueError, TypeError) as err:
+            except (ValueError,
+                    TypeError) as err:
                 print(f'{fail}[-]\t{end} [{x}] \t[0] : {err}, Dialect version: {y}')
                 logging.exception('Value or Type error')
                 break
@@ -44,6 +47,7 @@ def smb_check(hosts, port, timeout, dialects_int):
                     smbprotocol.exceptions.SMBException) as ex:
                 print(f'{fail}[-]\t{end} [{x}] \t[0] : {ex}, Dialect version: {y}')
                 break
+
     # Creating bars for scanned versions dialects, using module matplotlib
     input(f'\nTap to create a diagram dialects...')
     version = (f'3.1.1\n[{count[785]}]', f'3.0.2\n[{count[770]}]', f'3.0.0\n[{count[768]}]',
@@ -55,13 +59,9 @@ def smb_check(hosts, port, timeout, dialects_int):
     plt.xticks(y_pos, version), plt.ylabel('Hosts'), plt.title('Dialect versions'), plt.show()
 
 
-def smb_all_shares(ip, port, thr):
+def smb_all_shares(ip, port, thr, username, password, domain, client_name):
     # Connecting on 445 port with smbprotocol module
     try:
-        username = 'User'
-        password = 'User'
-        domain = '.'
-        client_name = 'Guest'
         if port == 445:
             is_direct_tcp = True
         else:
@@ -70,9 +70,9 @@ def smb_all_shares(ip, port, thr):
         conn = SMBConnection(username, password, client_name,
                              ip, domain, use_ntlm_v2=True,
                              is_direct_tcp=is_direct_tcp)
-        smb_auth_successful = conn.connect(ip, port, timeout=20)
+        smb_auth_successful = conn.connect(ip, port, timeout=25)
         if smb_auth_successful:
-            all_shares = conn.listShares(timeout=20)
+            all_shares = conn.listShares(timeout=25)
             # Append all results for host
             lib = {}
             for i in range(len(all_shares)):
@@ -93,8 +93,8 @@ def smb_all_shares(ip, port, thr):
 def dumps_dir(ip, port, username, password, client, domain):
     try:
         conn = SMBConnection(username, password, client, ip, domain, use_ntlm_v2=True, is_direct_tcp=True)
-        conn.connect(ip, port, timeout=20)
-        shares = conn.listShares(timeout=20)
+        conn.connect(ip, port, timeout=25)
+        shares = conn.listShares(timeout=25)
         lib_dir = list()
         for i in range(len(shares)):
             lib_dir.append(shares[i].name)
@@ -111,14 +111,18 @@ def dumps_dir(ip, port, username, password, client, domain):
             except OperationFailure:
                 print(f'{fail}[-]{end} [{ip}] : Authentication aborted on {x} ')
                 pass
-            except (ProtocolError, NotConnectedError,
-                    SMBTimeout, NotReadyError,
+            except (ProtocolError,
+                    NotConnectedError,
+                    SMBTimeout,
+                    NotReadyError,
                     OSError):
                 logging.exception(f'Two step error, please check {ip}')
     except TimeoutError as ex:
         print(f'Timeout: {ip}, {ex}')
-    except (ProtocolError, NotConnectedError,
-            SMBTimeout, NotReadyError,
+    except (ProtocolError,
+            NotConnectedError,
+            SMBTimeout,
+            NotReadyError,
             OSError):
         logging.exception(f'First step error, please check {ip}')
     # This error need repair !!!
@@ -127,9 +131,13 @@ def dumps_dir(ip, port, username, password, client, domain):
         pass
 
 
+def user_list():
+    pass
+
+
 if __name__ == '__main__':
     samba_lib = {
-        '78.47.38.219', '78.138.127.102', '78.109.47.110', '78.186.205.132', '78.186.185.31',
+        '95.22.216.192', '95.23.90.102', '95.22.2.28', '213.133.99.210', '213.133.122.84',
     }
     # Logs for view some errors
     logging.basicConfig(level=logging.INFO, filename='logs.log', filemode='w',
@@ -137,7 +145,7 @@ if __name__ == '__main__':
     # List = dialects version with integer
     input()
     print(f'\n{green}Starting{end} ---> Scanning dialects and probes samba protocol...')
-    smb_check(samba_lib, port=445, timeout=20, dialects_int=[785, 770, 768, 528, 514, 767])
+    smb_check(samba_lib, port=445, timeout=25, dialects_int=[785, 770, 768, 528, 514, 767])
 
     input()
     logging.info('Start scanning with [DUMPS DIRS ON SHARES SMB]...')
@@ -152,4 +160,4 @@ if __name__ == '__main__':
     for ip in samba_lib:
         port = 445
         threading.Thread(target=smb_all_shares,
-                         args=(str(ip), port, threading.active_count())).start()
+                         args=(str(ip), port, threading.active_count(), 'User', 'User', '.', 'Guest')).start()
