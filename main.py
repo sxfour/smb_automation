@@ -6,8 +6,15 @@ from smb.SMBConnection import (
     SMBTimeout,
     NotReadyError,
 )
-import smbprotocol.exceptions, uuid, numpy, logging, threading, matplotlib.pyplot as plt
 from smbprotocol.connection import Connection
+
+import smbprotocol.exceptions
+import matplotlib.pyplot as plt
+import threading
+import logging
+import numpy
+import uuid
+
 
 # ASCII color codes
 green = '\033[32;3m'
