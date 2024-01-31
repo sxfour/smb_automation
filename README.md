@@ -4,7 +4,10 @@
 - Запись в бд вносится при условии совместимости диалекта + without password на указаном хосте или при тестовой аутентификации User/User
 # Пример работы в pgAdmin4
 https://github.com/sxfour/smb_automation/assets/112577182/e98f3004-dfe3-4698-ba93-c1f3c54e8570
-
+# Установка Linux
+Install packages with pip: -r requirements.txt
+Use the command below to install the packages according to the configuration file requirements.txt.
+$ pip install -r requirements.txt
 
 
 
