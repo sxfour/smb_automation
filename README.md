@@ -14,6 +14,7 @@ https://github.com/sxfour/smb_automation/assets/112577182/6342a1a1-8ea6-4523-9bb
 ![Screenshot_2024-02-13-14-45-47-285_org telegram messenger](https://github.com/sxfour/smb_automation/assets/112577182/e529a157-6099-4fe7-a160-286d770ebec4)
 
 # Автоматическое сохранение через bat
+![бат](https://github.com/sxfour/smb_automation/assets/112577182/c1b318e5-a86e-4546-af99-76b4ec5ff04a)
 
 
 # Smb_automation (старая версия)
