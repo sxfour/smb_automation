@@ -11,11 +11,10 @@ https://github.com/sxfour/smb_automation/assets/112577182/ede939d4-5599-45cd-818
 https://github.com/sxfour/smb_automation/assets/112577182/6342a1a1-8ea6-4523-9bbf-10109ec21e02
 
 # Telegram Bot для получения backup-ов PostgreSQL
-![Screenshot_2024-02-13-14-45-47-285_org telegram messenger](https://github.com/sxfour/smb_automation/assets/112577182/e529a157-6099-4fe7-a160-286d770ebec4)
+![Screenshot_2024-02-15-15-52-10-549_org telegram messenger](https://github.com/sxfour/smb_automation/assets/112577182/792f1cbb-5abc-4496-b8ac-c6a42fabc50a)
 
 # Автоматическое сохранение через bat
 ![бат](https://github.com/sxfour/smb_automation/assets/112577182/c1b318e5-a86e-4546-af99-76b4ec5ff04a)
-
 
 # Smb_automation (старая версия)
 Код предназначен для открытых самба протоколов, добавлен график для выявления тенденции работающих версий диалектов в виде bars, сопоставление этой информации поможет понять, какие версии работают в блоках хостов и на какие делать ориентир в первую очередь. На данный момент это один из первых проектов масс-сканирования, он является очень сырым, некоторые except логируются и большинство действий логируется для выявления ошибок.
