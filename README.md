@@ -1,4 +1,4 @@
-# SMBAutoScanner + Masscan + PostgreSQL (новая версия с интеграцией) v2.1
+# SMBAutoScanner + Masscan + PostgreSQL (новая версия с интеграцией) v0.2
 ![tumblr_d44e3aebf46e73976eec4d927268a961_ca96b743_500](https://github.com/sxfour/smb_automation/assets/112577182/92cc76ff-1144-4f88-8007-98ee0c659b56)
 # Проверено на (Debian 11, Kali Linux)
 - Используется масскан для 445 портов. Код считывает через пайп каждый сканируемый хост программы и отправляет SQL запрос на запись в бд.
@@ -7,13 +7,13 @@
 # Пример работы на удалённой машине
 https://github.com/sxfour/smb_automation/assets/112577182/ede939d4-5599-45cd-8184-64e75d77b650
 
-# Пример записей бд в pgAdmin4
-https://github.com/sxfour/smb_automation/assets/112577182/6342a1a1-8ea6-4523-9bbf-10109ec21e02
+# Пример записей бд с вложенными файлами и папками в pgAdmin4 (Обновлено)
+https://github.com/sxfour/smb_automation/assets/112577182/07a856a6-fd9f-409e-aa83-31854f4012f6
 
 # Telegram Bot для получения backup-ов PostgreSQL
 ![Screenshot_2024-02-15-15-52-10-549_org telegram messenger](https://github.com/sxfour/smb_automation/assets/112577182/792f1cbb-5abc-4496-b8ac-c6a42fabc50a)
 
-# Автоматическое сохранение через bat
+# Автоматическое сохранение данных через bat
 ![бат](https://github.com/sxfour/smb_automation/assets/112577182/c1b318e5-a86e-4546-af99-76b4ec5ff04a)
 
 # Smb_automation (старая версия)
