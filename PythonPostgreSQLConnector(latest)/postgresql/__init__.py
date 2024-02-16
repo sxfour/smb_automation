@@ -125,10 +125,10 @@ class AddHosts:
         currentDateServer = str(self.requestPostgreSQL("SELECT version(), CURRENT_DATE;")[0])
         print("Current info from server: {0}".format(currentDateServer))
 
-    def appendHostPostgreSQL(self, db, host, port, username, password, dirs):
-        self.addPostgreSQL("INSERT INTO public.\"{0}\" (ip_address, port_opened, user_name, pass, dirs) "
-                           "VALUES ('{1}', '{2}', '{3}', '{4}', '{5}'); commit;"
-                           .format(db, host, port, username, password, dirs))
+    def appendHostPostgreSQL(self, db, host, port, username, password, dirs, files):
+        self.addPostgreSQL("INSERT INTO public.\"{0}\" (ip_address, port_opened, user_name, pass, dirs, files) "
+                           "VALUES ('{1}', '{2}', '{3}', '{4}', '{5}', '{6}'); commit;"
+                           .format(db, host, port, username, password, dirs, files))
 
     def requestPostgreSQL(self, request):
         return WorkerSQL(request, self.settings, self.section).connectPostgreSQL()
